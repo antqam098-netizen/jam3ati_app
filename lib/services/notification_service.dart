@@ -12,20 +12,23 @@ class NotificationService {
 
 static Future<void> initialize() async {
   tz.initializeTimeZones(); 
-  
-    final InitializationSettings initializationSettings =
-        InitializationSettings(android: initializationSettingsAndroid);
 
-    await _notificationsPlugin.initialize(initializationSettings,
-        onDidReceiveNotificationResponse: (details) {});
+  const AndroidInitializationSettings initializationSettingsAndroid =
+      AndroidInitializationSettings('@mipmap/ic_launcher');
 
-    await AndroidAlarmManager.periodic(
-      const Duration(hours: 24),
-      1,
-      showDailySummary,
-      startAt: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, 6),
-    );
-  }
+  final InitializationSettings initializationSettings =
+      InitializationSettings(android: initializationSettingsAndroid);
+
+  await _notificationsPlugin.initialize(initializationSettings,
+      onDidReceiveNotificationResponse: (details) {});
+
+  await AndroidAlarmManager.periodic(
+    const Duration(hours: 24),
+    1,
+    showDailySummary,
+    startAt: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, 6),
+  );
+}
 
   static Future<void> scheduleLectureNotifications(List<Lecture> lectures) async {
     for (var lecture in lectures) {
@@ -113,3 +116,4 @@ static Future<void> initialize() async {
   }
 
 }
+
