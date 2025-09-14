@@ -21,12 +21,6 @@ static Future<void> initialize() async {
   await _notificationsPlugin.initialize(initializationSettings,
       onDidReceiveNotificationResponse: (details) {});
 
-  await AndroidAlarmManager.periodic(
-    const Duration(hours: 24),
-    1,
-    showDailySummary,
-    startAt: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, 6),
-  );
 }
 
   static Future<void> scheduleLectureNotifications(List<Lecture> lectures) async {
@@ -115,4 +109,5 @@ static Future<void> initialize() async {
   }
 
 }
+
 
