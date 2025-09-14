@@ -11,6 +11,7 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+        coreLibraryDesugaringEnabled true  
     }
 
     kotlinOptions {
@@ -24,10 +25,10 @@ android {
     defaultConfig {
         applicationId "com.example.jam3ati_app"
         minSdkVersion 21
-        targetSdkVersion 34
+        targetSdkVersion 36
         versionCode 1
         versionName "1.0"
-        multiDexEnabled true
+        multiDexEnabled true  
     }
 
     buildTypes {
@@ -35,4 +36,9 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+}
+
+dependencies {
+    implementation "androidx.multidex:multidex:2.0.1" 
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'  
 }
