@@ -3,15 +3,16 @@ import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:intl/intl.dart';
 import '../models/lecture_model.dart';
 import './database_helper.dart';
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
 
 class NotificationService {
   static final FlutterLocalNotificationsPlugin _notificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-  static Future<void> initialize() async {
-    const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
-
+static Future<void> initialize() async {
+  tz.initializeTimeZones(); 
+  
     final InitializationSettings initializationSettings =
         InitializationSettings(android: initializationSettingsAndroid);
 
@@ -30,11 +31,11 @@ class NotificationService {
     for (var lecture in lectures) {
       DateTime now = DateTime.now();
       DateTime lectureTime = DateFormat("HH:mm").parse(lecture.startTime);
-      DateTime scheduledTime = DateTime(now.year, now.month, now.day,
-          lectureTime.hour, lectureTime.minute);
+      tz.TZDateTime scheduledTime = tz.TZDateTime.local(now.year, now.month, now.day,
+    lectureTime.hour, lectureTime.minute);
 
       if (lecture.day == _getArabicDay(now) && scheduledTime.isAfter(now)) {
-        scheduledTime = scheduledTime.subtract(const Duration(minutes: 30));
+        scheduledTime = scheduledTime.subtract(const Duration(minutes: 30)) as tz.TZDateTime;
         int id = lecture.id ?? 0;
 
         await _notificationsPlugin.zonedSchedule(
@@ -110,4 +111,5 @@ class NotificationService {
         return 'غير معروف';
     }
   }
+
 }
