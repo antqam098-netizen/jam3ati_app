@@ -1,0 +1,26 @@
+name: jam3ati_app
+description: تطبيق جامعتي لإدارة المحاضرات والإشعارات
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  sqflite: ^2.3.3
+  path: ^1.8.3
+  flutter_local_notifications: ^16.1.0
+  android_alarm_manager_plus: ^3.0.4
+  intl: ^0.18.1
+  fluttertoast: ^8.2.4
+  url_launcher: ^6.2.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
